@@ -1,0 +1,113 @@
+#include<iostream>
+using namespace std;
+class Cirqueue
+{
+	protected:
+	int x,a[10];
+	int n=5,front=-1,rear=-1;
+	public:
+	bool isfull()
+	{
+		if((rear+1)%n==front)
+			return true;
+		else
+			return false;
+	}
+	bool isempty()
+	{
+		if(front==-1)
+			return true;
+		else
+			return false;
+	}
+	void enqueue()
+	{
+		int x;
+		if(isfull())
+			cout<<"Queue is overflow\n";
+		else
+		{
+			cout<<"Enter the element:";
+			cin>>x;
+			if(front==-1)
+				front=0;
+			rear=(rear+1)%n;
+			a[rear]=x;
+		}
+	}
+	void dequeue()
+	{
+		int y;
+		if(isempty())
+			cout<<"Underflow\n";
+		else if(front==rear)
+		{
+			front=-1;
+			rear=-1;
+		}
+		else
+		{
+			y=front;
+			front=(front+1)%n;
+			cout<<"Dequeued element= "<<a[y];
+		}
+	}
+	void peek()
+	{
+		cout<<"Front element="<<a[front]<<"\n";
+	}
+	void display()
+	{
+		cout<<"\nElements in the queue:\n";
+		int i=front;
+		while(i!=rear)
+		{
+			cout<<a[i]<<" ";
+			i=(i+1)%n;
+		}
+		cout<<a[rear];
+	}
+};
+int main()
+{
+	Cirqueue c;
+	int ch;
+	char b;
+	do
+	{
+		cout<<"Enter your choice:\n1.enqueue()\n2.dequeue()\n3.peek()\n4.isfull()\n5.isempty()\n";
+		cin>>ch;
+		if(ch==1)
+		{
+			c.enqueue();
+			c.display();
+		}
+		if(ch==2)
+		{
+			c.dequeue();
+			c.display();
+		}
+
+		if(ch==3)
+		{
+			c.peek();
+			c.display();
+		}
+		if(ch==4)
+		{
+			if(c.isfull())
+				cout<<"The queue is full";
+			else
+				cout<<"The queue is not full";
+		}
+		if(ch==5)
+		{
+			if(c.isempty())
+				cout<<"The queue is empty";
+			else
+				cout<<"The queue is not empty";
+		}
+		cout<<"\n\nTo continue press 'y' else press 'n': ";
+		cin>>b;
+	}while(b=='y');
+}
